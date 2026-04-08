@@ -13,13 +13,6 @@ outputs:
 runs:
   using: "composite"
   steps:
-    # - name: Awesome bash script action
-    #   id: deep-thought
-    #   shell: bash
-    #   run: |
-    #     echo "Hello '${{ inputs.who-to-greet }}'."
-    #     echo "answer=42" >> $GITHUB_OUTPUT
-    #     echo "So long, and thanks for all the fish."
     - name: Awesome github script action
       uses: actions/github-script@v6
       with:
@@ -28,7 +21,7 @@ runs:
           core.notice(`Hello ${whoToGreet}`)
           core.setOutput('answer', 42)
           if (context.eventName === 'issues') {
-            github.rest.issues.createComment({
+            await github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
